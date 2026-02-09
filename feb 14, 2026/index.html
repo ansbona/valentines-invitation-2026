@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter For You</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main id="app">
+        
+        <section id="scene-envelope" class="screen active">
+            <div class="floating-container">
+                <p class="hint-text">You got a letter 💌</p>
+                <div class="envelope" id="btn-open-envelope" role="button" tabindex="0">
+                    <div class="flap"></div>
+                    <div class="body"></div>
+                    <div class="heart">💜</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="scene-letter" class="screen hidden">
+            <div class="letter-content">
+                <p class="message-text">
+                    I know that we can’t date for now, but I still want to ask you…<br><br>
+                    <strong>will you be my valentine?</strong>
+                </p>
+                
+                <div class="action-buttons">
+                    <button id="btn-yes" class="btn primary">Yes</button>
+                    <button id="btn-no" class="btn secondary">No</button>
+                </div>
+
+                <div id="no-response-container" class="hidden">
+                    <p id="no-text" class="response-text">Try again...</p>
+                    <img id="no-gif" src="" alt="Sad Reaction" class="response-gif">
+                </div>
+            </div>
+        </section>
+
+        <section id="scene-dashboard" class="screen hidden">
+            <header>
+                <h2>Yeyyyyyyy! 💜</h2>
+                <p>I'm so happy!</p>
+            </header>
+
+            <div class="card-grid">
+                <div class="card" id="card-read-personal">
+                    <span class="icon">💌</span>
+                    <span>Read Personal Letter</span>
+                </div>
+
+                <div class="card" id="card-music">
+                    <span class="icon">🎵</span>
+                    <span id="music-status">Play a Song</span>
+                    <audio id="bg-music" loop>
+                        <source src="assets/music.mp3" type="audio/mpeg">
+                    </audio>
+                </div>
+
+                <div class="card" id="card-plans">
+                    <span class="icon">Feb 14, 2026 - Plans💜</span>
+                    <span>To do list:</span>
+                    <ul class="checklist">
+                        <li><input type="checkbox" id="p1"><label for="p1">Call for the entire day!</label></li>
+                        <li><input type="checkbox" id="p2"><label for="p2">Cook pansit canton </label></li>
+                        <li><input type="checkbox" id="p3"><label for="p3">Watch a movie - your choice </label></li>
+                        <li><input type="checkbox" id="p4"><label for="p4">Rate our friends MD - bash natin hehe</label></li>
+                        <li><input type="checkbox" id="p5"><label for="p5">Play roblox - cute games, if you want tho</label></li>
+                        <li><input type="checkbox" id="p6"><label for="p6">Sleep!!!</label></li>
+                    </ul>
+                </div>
+            </div>
+
+            <footer>
+                From your secret lover hehe.
+            </footer>
+        </section>
+
+        <section id="scene-personal-letter" class="screen hidden">
+            <div class="paper-sheet">
+                <p>To my dearest, Nix,</p>
+                <p>
+                    I know we can't be together right now, but I hope this letter and simple website can show my love for you.
+                    You are always my favorite person to talk to, laugh with, and share my thoughts with. I cherish every moment we spend together, even if it's just through messages or calls.
+                    Let's make this our first Valentine's Day together memorable, even if it's not in the traditional way. I look forward to the day when we can finally be together and celebrate our love in person. 
+                    Until then, please know that you are always in my heart and mind.
+                </p>
+                <p>
+                    I love you, always. 💜
+                </p>
+                <p class="signature">- From me, to you. Mwaa</p>
+                
+                <button id="btn-back-dashboard" class="btn primary">Back</button>
+            </div>
+        </section>
+
+    </main>
+    <script src="script.js"></script>
+</body>
+</html>

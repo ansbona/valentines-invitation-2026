@@ -1,0 +1,278 @@
+:root {
+    --bg-color: #F3E5F5;        /* Very pale purple */
+    --primary: #9C27B0;         /* Deep Lavender */
+    --accent: #E1BEE7;          /* Soft Violet */
+    --white: #FFFFFF;
+    --text: #4A148C;            /* Dark Purple text for contrast */
+    --red-alert: #D32F2F;       /* Soft Red for 'No' text */
+    --shadow: rgba(156, 39, 176, 0.2);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Nunito', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Mobile app feel */
+}
+
+#app {
+    width: 100%;
+    max-width: 400px;
+    height: 100%;
+    position: relative;
+    background: var(--bg-color);
+}
+
+/* --- UTILITY --- */
+.hidden {
+    display: none !important;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --- TRANSITIONS --- */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    padding: 20px;
+}
+
+.screen.active {
+    opacity: 1;
+    pointer-events: all;
+    z-index: 2;
+}
+
+/* --- SCENE 1: ENVELOPE --- */
+.floating-container {
+    animation: float 3s ease-in-out infinite;
+    text-align: center;
+    cursor: pointer;
+}
+
+.hint-text {
+    margin-bottom: 20px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.envelope {
+    width: 150px;
+    height: 100px;
+    background: var(--primary);
+    position: relative;
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 10px 20px var(--shadow);
+    margin: 0 auto;
+}
+
+.envelope .flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0; 
+    height: 0; 
+    border-left: 75px solid transparent;
+    border-right: 75px solid transparent;
+    border-top: 55px solid var(--accent);
+    transform-origin: top;
+    transition: transform 0.4s;
+}
+
+.envelope .heart {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+}
+
+/* --- SCENE 2: LETTER & FEEDBACK --- */
+.letter-content {
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px var(--shadow);
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+    transition: all 0.3s ease; /* Smooth growth when GIF appears */
+}
+
+.message-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+.btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+.btn.primary {
+    background: var(--primary);
+    color: white;
+    font-weight: bold;
+}
+
+.btn.secondary {
+    background: #e1bee7;
+    color: var(--text);
+}
+
+/* INLINE RESPONSE STYLES */
+#no-response-container {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+    animation: slideDown 0.4s ease-out;
+}
+
+.response-text {
+    color: var(--red-alert);
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+}
+
+.response-gif {
+    width: 100px;         /* Keep it small */
+    height: 100px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* --- SCENE 3: DASHBOARD --- */
+#scene-dashboard header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.card-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    max-width: 320px;
+}
+
+.card {
+    background: var(--white);
+    padding: 1.2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(156, 39, 176, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.card:active {
+    transform: scale(0.98);
+}
+
+.checklist {
+    list-style: none;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.checklist li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 0;
+    font-size: 0.9rem;
+}
+
+#card-plans {
+    flex-direction: column;
+    align-items: flex-start;
+    cursor: default;
+}
+
+/* --- SCENE 4: PERSONAL LETTER --- */
+.paper-sheet {
+    background: #fff;
+    width: 100%;
+    max-width: 320px;
+    padding: 2rem;
+    border-radius: 4px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    font-family: 'Caveat', cursive; /* Handwriting font */
+    font-size: 1.3rem;
+    line-height: 1.5;
+    color: #444;
+    transform: rotate(-2deg);
+    position: relative;
+}
+
+.signature {
+    text-align: right;
+    margin-top: 1.5rem;
+    color: var(--primary);
+}
+
+#btn-back-dashboard {
+    width: 100%;
+    margin-top: 1.5rem;
+}
+
+footer {
+    position: absolute;
+    bottom: 15px;
+    font-size: 0.75rem;
+    color: var(--primary);
+    opacity: 0.7;
+    width: 100%;
+    text-align: center;
+}
+
+/* --- ANIMATIONS --- */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
