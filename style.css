@@ -109,7 +109,11 @@ body {
 }
 
 /* --- SCENE 2: LETTER & FEEDBACK --- */
+/* --- UPDATE THIS CLASS --- */
 .letter-content {
+    /* vital for the No button to stay inside this box */
+    position: relative; 
+    
     background: var(--white);
     padding: 2rem;
     border-radius: 20px;
@@ -117,7 +121,26 @@ body {
     text-align: center;
     width: 100%;
     max-width: 320px;
-    transition: all 0.3s ease; /* Smooth growth when GIF appears */
+    transition: all 0.3s ease;
+    
+    /* Ensure content doesn't get hidden if button moves near edge */
+    overflow: visible; 
+}
+
+/* --- UPDATE THIS CLASS --- */
+.btn {
+    border: none;
+    padding: 12px 24px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    
+    /* Smooth animation for moving and growing */
+    transition: all 0.3s ease; 
+    
+    /* vital for z-index layering */
+    position: relative; 
+    z-index: 10;
 }
 
 .message-text {
@@ -275,4 +298,5 @@ footer {
 @keyframes slideDown {
     from { opacity: 0; transform: translateY(-10px); }
     to { opacity: 1; transform: translateY(0); }
+
 }
