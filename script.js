@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sceneLetter = document.getElementById('scene-letter');
     const sceneDashboard = document.getElementById('scene-dashboard');
     const scenePersonalLetter = document.getElementById('scene-personal-letter');
+    const letterContent = document.querySelector('.letter-content'); // Needed for boundaries
     
     const btnYes = document.getElementById('btn-yes');
     const btnNo = document.getElementById('btn-no');
@@ -23,18 +24,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- State & Data ---
     let isPlaying = false;
+    let yesScale = 1; // Tracks how big the Yes button is
 
-    // 🟣 DATA: The list of 9 sad GIFs and Texts
+    // 🟣 DATA: The list of sad GIFs and Texts
     const noMessages = [
-        { text: "Sure na ba ean? 🥺", gif: "assets/sad-1.gif" },
-        { text: "Sige na po pweaseeeee 💔", gif: "assets/sad-2.gif" },
-        { text: "Cry na ako nyean huhu... 🌸", gif: "assets/sad-3.gif" },
-        { text: "Sad na me huhu", gif: "assets/sad-4.gif" }, 
-        { text: "Me looking at the screen after you clicked no", gif: "assets/sad-5.gif" },
-        { text: "Look at my sadge face... 😿", gif: "assets/sad-6.gif" },
-        { text: "Okie lang aqou ack", gif: "assets/sad-7.gif" },
+        { text: "Are you sure? 🥺", gif: "assets/sad-1.gif" },
+        { text: "Please think again! 💔", gif: "assets/sad-2.gif" },
+        { text: "But I bought flowers... 🌸", gif: "assets/sad-3.gif" },
+        { text: "Don't break my heart 😭", gif: "assets/sad-4.gif" }, 
+        { text: "I'll make you cookies! 🍪", gif: "assets/sad-5.gif" },
+        { text: "Look at this sad face... 😿", gif: "assets/sad-6.gif" },
+        { text: "I'm going to cry... 💧", gif: "assets/sad-7.gif" },
         { text: "Just one chance? ✨", gif: "assets/sad-8.gif" },
-        { text: "Sure na sure? 🙏", gif: "assets/sad-9.gif" }
+        { text: "Okay, but what if I say please? 🙏", gif: "assets/sad-9.gif" }
     ];
 
     // --- Interaction Logic ---
@@ -48,23 +50,42 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => sceneLetter.classList.add('active'), 50);
     });
 
-    // 2. Handle "No" Selection (Inline Shuffle)
+    // 2. Handle "No" Selection (Shuffle + Grow + Move)
     btnNo.addEventListener('click', () => {
-        // Unhide the container if it's currently hidden
+        // A. Show Inline Feedback
         noResponseContainer.classList.remove('hidden');
 
-        // Pick a RANDOM message from the list
+        // B. Pick Random Message/GIF
         const randomIndex = Math.floor(Math.random() * noMessages.length);
         const selectedMessage = noMessages[randomIndex];
-
-        // Update Content
         noText.textContent = selectedMessage.text;
         noGif.src = selectedMessage.gif;
 
-        // Reset Animation (Hack to make it pop every time you click)
+        // Reset Animation
         noResponseContainer.style.animation = 'none';
-        noResponseContainer.offsetHeight; /* Trigger reflow */
+        noResponseContainer.offsetHeight; 
         noResponseContainer.style.animation = 'slideDown 0.4s ease-out';
+
+        // C. Make YES Button Bigger
+        yesScale += 0.2; // Increase size by 20% each click
+        btnYes.style.transform = `scale(${yesScale})`;
+
+        // D. Make NO Button Move Randomly
+        // 1. Make it absolute so it can move freely inside the container
+        btnNo.style.position = "absolute";
+        
+        // 2. Calculate available space within the letter card
+        // We subtract the button's own size so it doesn't overflow
+        const maxX = letterContent.offsetWidth - btnNo.offsetWidth - 20; // 20px padding buffer
+        const maxY = letterContent.offsetHeight - btnNo.offsetHeight - 20;
+
+        // 3. Generate random coordinates
+        const randomX = Math.random() * maxX;
+        const randomY = Math.random() * maxY;
+
+        // 4. Apply new coordinates
+        btnNo.style.left = `${randomX}px`;
+        btnNo.style.top = `${randomY}px`;
     });
 
     // 3. Handle "Yes" Selection
